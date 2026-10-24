@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Доска лидеров — Codigo{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <span class="kicker">Соревнование</span>
+    <h1>Доска лидеров</h1>
+    <p>Лучшие ученики по количеству XP. Займи своё место в топе!</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="table-responsive">
+                {% if entries %}
+                <table class="table table-hover mb-0">
+                    <thead class="table-dark" style="background:var(--surface-2);">
+                        <tr>
+                            <th>#</th>
+                            <th>Пользователь</th>
+                            <th>XP</th>
+                            <th>Обновлено</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in entries %}
+                            <tr {% if current_user.is_authenticated and entry.user_id == current_user.id %}style="background:var(--primary-soft);"{% endif %}>
+                                <td>
+                                    {% if entry.rank == 1 %}
+                                        <span class="pill accent">🥇 1</span>
+                                    {% elif entry.rank == 2 %}
+                                        <span class="pill accent">🥈 2</span>
+                                    {% elif entry.rank == 3 %}
+                                        <span class="pill accent">🥉 3</span>
+                                    {% else %}
+                                        {{ entry.rank }}
+                                    {% endif %}
+                                </td>
+                                <td><strong>{{ entry.user.username }}</strong>{% if current_user.is_authenticated and entry.user_id == current_user.id %} <span class="pill idle">ты</span>{% endif %}</td>
+                                <td><span class="xp-chip">{{ entry.xp }} XP</span></td>
+                                <td>
+                                    {{ entry.last_updated.strftime('%d.%m.%Y') if entry.last_updated else '-' }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="text-center p-5">
+                    <p class="text-muted mb-0">Пока нет участников. Будь первым!</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

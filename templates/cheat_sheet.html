@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}Шпаргалки — Codigo{% endblock %}
+
+{% block content %}
+<div class="page-head">
+    <span class="kicker">Шпаргалки</span>
+    <h1>Всё для решения задач</h1>
+    <p>Краткие памятки по всем языкам: синтаксис, примеры и зачем это нужно.
+       Выбери язык и тему — всё компактно на одной странице.</p>
+</div>
+
+<!-- Переключатель языков -->
+<ul class="nav nav-pills justify-content-center mb-4" id="csLangTabs">
+    {% for code, info in languages.items() %}
+    <li class="nav-item">
+        <button class="nav-link cs-lang-btn {% if loop.first %}active{% endif %}"
+                data-lang="{{ code }}" type="button">
+            {{ info.icon }} {{ info.name }}
+        </button>
+    </li>
+    {% endfor %}
+</ul>
+
+{% for code, data in sheets.items() %}
+<div class="lang-cheatsheets {% if not loop.first %}d-none{% endif %}" id="csSheet-{{ code }}">
+    <div class="text-center mb-3">
+        <h4 class="mb-1">{{ languages[code].name }} — {{ data|length }} тем</h4>
+    </div>
+    {% for item in data %}
+    <div class="row g-4 cs-topic">
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-header iconized">
+                    <span class="head-icon">{{ item.icon }}</span>
+                    <span>{{ loop.index }}. {{ item.title }}</span>
+                </div>
+                <div class="card-body">
+                    <pre class="code-block">{{ item.code }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card h-100 cs-explain">
+                <div class="card-body">
+                    {% if item.why %}
+                    <h6 class="cs-q">🎯 Для чего это нужно</h6>
+                    <p class="cs-why">{{ item.why }}</p>
+                    {% endif %}
+                    {% if item.where %}
+                    <h6 class="cs-q cs-q-2">📍 Где это используется</h6>
+                    <p class="cs-where">{{ item.where }}</p>
+                    {% endif %}
+                    {% if not item.why and not item.where %}
+                    <p class="mb-0">{{ item.note }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+
+{% endblock %}
+{% block extra_js %}
+<script nonce="{{ csp_nonce() }}">
+(function() {
+    var btns = document.querySelectorAll('.cs-lang-btn');
+    btns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var lang = btn.dataset.lang;
+            btns.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            document.querySelectorAll('.lang-cheatsheets').forEach(function(s) {
+                s.classList.add('d-none');
+            });
+            var target = document.getElementById('csSheet-' + lang);
+            if (target) target.classList.remove('d-none');
+        });
+    });
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,1261 @@
+/* ============================================================
+   Codigo — тёмная тема ("сделано вручную", без шаблонного вида)
+   ============================================================ */
+
+:root {
+    --bg:        #0e1013;
+    --bg-soft:   #12161c;
+    --surface:   #171b22;
+    --surface-2: #1e242e;
+    --surface-3: #262e3b;
+    --border:    #2b3340;
+    --border-2:  #3a444f;
+    --text:      #f2f5fa;
+    --muted:     #e8edf4;
+    --faint:     #c2cad6;
+    --primary:   #7c5cff;
+    --primary-2: #6a47e6;
+    --primary-soft: rgba(124, 92, 255, .14);
+    --success:   #2fd38a;
+    --warn:      #f0b429;
+    --danger:    #ff5c6e;
+    --info:      #38bdf8;
+    --pink:      #f472b6;
+    --mono: 'JetBrains Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+    --sans: 'Inter', 'Segoe UI', 'Ubuntu', Arial, sans-serif;
+}
+
+html, body {
+    background:
+        radial-gradient(1100px 560px at 78% -80px, rgba(124,92,255,.09), transparent 60%),
+        radial-gradient(900px 520px at -220px 40%, rgba(56,189,248,.05), transparent 55%),
+        var(--bg);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16.5px;
+    line-height: 1.7;
+    min-height: 100%;
+}
+
+p, li { line-height: 1.75; }
+
+::selection { background: rgba(124,92,255,.35); }
+
+/* Bootstrap по умолчанию рисует тёмный текст (страница в теме light) —
+   принудительно делаем весь его текст светлым, чтобы нигде не оставалось
+   тёмно-серых надписей */
+:root, [data-bs-theme="light"] {
+    --bs-body-color: var(--text);
+    --bs-emphasis-color: var(--text);
+    --bs-heading-color: var(--text);
+    --bs-secondary-color: var(--muted);
+}
+h1, h2, h3, h4, h5, h6 { color: var(--text) !important; }
+.card, .card-body, .card-header { color: var(--text); }
+
+/* ---------- scrollbar ---------- */
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: var(--bg-soft); }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-2); }
+
+/* ---------- base links ---------- */
+a { color: var(--info); text-decoration: none; }
+a:hover { color: var(--primary); }
+
+/* ============================================================
+   Шапка (navbar)
+   ============================================================ */
+.nav-shell {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    background: linear-gradient(180deg, #12151b 0%, #0d0f14 100%);
+    border-bottom: 1px solid var(--border-2);
+    box-shadow: 0 10px 26px rgba(0,0,0,.35);
+}
+.brand-mark {
+    font-weight: 800;
+    letter-spacing: .4px;
+    color: var(--text);
+    font-size: 1.42rem;
+}
+.brand-mark .mark-brace { color: var(--primary); font-weight: 700; }
+.brand-mark .mark-label { color: var(--success); }
+.nav-link-style {
+    color: var(--muted);
+    font-weight: 500;
+    padding: .55rem .85rem;
+    border-radius: 8px;
+    transition: color .15s, background .15s;
+}
+.nav-link-style:hover { color: var(--text); background: var(--surface-2); }
+.nav-link-style.active { color: var(--text); background: var(--primary-soft); }
+.nav-link-style + .nav-link-style { margin-left: 2px; }
+
+/* ---------- user chip in navbar ---------- */
+.user-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    padding: .32rem .85rem;
+    border-radius: 999px;
+    font-weight: 600;
+    color: var(--text);
+}
+.user-chip .chip-avatar {
+    width: 26px; height: 26px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--pink));
+    color: #0b0c0f;
+    font-weight: 800;
+    font-size: 13px;
+}
+.btn-nav-ghost {
+    background: transparent;
+    border: 1px solid var(--border-2);
+    color: var(--muted);
+    padding: .38rem .95rem;
+    border-radius: 9px;
+    font-weight: 600;
+    transition: all .15s;
+}
+.btn-nav-ghost:hover { color: var(--text); border-color: var(--primary); background: var(--primary-soft); }
+/* ============================================================
+   Кнопки
+   ============================================================ */
+.btn {
+    border-radius: 10px;
+    font-weight: 600;
+    padding: .55rem 1.15rem;
+    border: none;
+    transition: transform .12s, box-shadow .15s, background .15s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+    color: #fff;
+    box-shadow: 0 4px 0 rgba(124,92,255,.35);
+}
+.btn-primary:hover { box-shadow: 0 8px 0 rgba(124,92,255,.5); }
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text);
+    border: 1.5px solid var(--border-2);
+}
+.btn-ghost:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+
+.btn-success {
+    background: linear-gradient(135deg, #17c47f 0%, var(--success) 100%);
+    color: #04120b;
+    box-shadow: 0 4px 0 rgba(47,211,138,.3);
+}
+.btn-warn {
+    background: linear-gradient(135deg, #e7a41c 0%, var(--warn) 100%);
+    color: #221400;
+    box-shadow: 0 4px 0 rgba(240,180,41,.3);
+}
+.btn-danger {
+    background: linear-gradient(135deg, var(--danger) 0%, #e03a4c 100%);
+    color: #fff;
+}
+.btn-info {
+    background: linear-gradient(135deg, var(--info) 0%, #0e97d6 100%);
+    color: #02131a;
+}
+.btn:hover,
+.btn:focus { color: inherit; text-decoration: none; }
+
+/* button sizes */
+.btn-xl { padding: .85rem 1.9rem; font-size: 1.05rem; border-radius: 12px; }
+.btn-sm { padding: .32rem .8rem; font-size: .85rem; border-radius: 8px; }
+
+/* ============================================================
+   Карточки
+   ============================================================ */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 10px 26px rgba(0,0,0,.25);
+    overflow: hidden;
+}
+.card-header {
+    background: linear-gradient(135deg, var(--surface-2), var(--surface-3));
+    border: none;
+    padding: 1rem 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+}
+.card-header.iconized { display: flex; align-items: center; gap: .6rem; }
+.card-header .head-icon {
+    width: 34px; height: 34px;
+    display: grid; place-items: center;
+    border-radius: 10px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: 1.15rem;
+}
+.card-body { padding: 1.5rem 1.5rem; }
+
+/* ============================================================
+   Заголовки страниц
+   ============================================================ */
+.page-head { margin-bottom: 2rem; }
+.page-head .kicker {
+    display: inline-block;
+    padding: .14rem .7rem;
+    border-radius: 999px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+.page-head h1 {
+    font-size: 2.3rem;
+    font-weight: 800;
+    margin: .45rem 0 .15rem;
+    color: var(--text);
+}
+.page-head p { color: var(--muted); margin-bottom: .1rem; font-size: 1.08rem; line-height: 1.7; }
+
+/* ============================================================
+   Пиллы / статусы / XP
+   ============================================================ */
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .24rem .75rem;
+    border-radius: 999px;
+    font-size: .82rem;
+    font-weight: 700;
+}
+.pill.done { background: rgba(47,211,138,.16); color: var(--success); }
+.pill.wip  { background: rgba(240,180,41,.16); color: var(--warn); }
+.pill.idle { background: var(--surface-2); color: var(--muted); }
+.pill.accent { background: var(--primary-soft); color: var(--primary); }
+
+.xp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    background: linear-gradient(135deg, rgba(240,180,41,.16), rgba(47,211,138,.1));
+    color: var(--warn);
+    padding: .26rem .7rem;
+    border-radius: 9px;
+    font-weight: 700;
+    font-size: .86rem;
+}
+
+/* ============================================================
+   Дашборд: метрики
+   ============================================================ */
+.stat-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.25rem 1.1rem;
+    text-align: center;
+}
+.stat-block .stat-num {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+}
+.stat-block .stat-lbl { color: var(--muted); font-size: .9rem; }
+
+.ach-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    background: var(--surface-3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: .5rem .85rem;
+    transition: transform .2s ease, border-color .2s ease;
+}
+.ach-chip:hover {
+    transform: translateY(-2px);
+    border-color: var(--warn);
+}
+.ach-icon { font-size: 1.5rem; line-height: 1; }
+.ach-name { color: var(--text); font-weight: 600; font-size: .9rem; }
+
+.xp-meter {
+    height: 14px;
+    background: var(--surface-3);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.xp-meter .xp-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--info), var(--success));
+    box-shadow: 0 0 12px rgba(124,92,255,.5);
+    transition: width .6s ease;
+}
+.streak-big {
+    font-size: 3.1rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--danger), var(--warn));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+/* ============================================================
+   Страница уроков (выбор урока)
+   ============================================================ */
+.module-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+}
+.module-head {
+    padding: 1rem 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    background: linear-gradient(135deg, var(--surface-2), var(--surface-3));
+}
+.module-head .mod-num {
+    width: 40px; height: 40px;
+    display: grid; place-items: center;
+    border-radius: 12px;
+    background: var(--primary-soft);
+    color: var(--primary);
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+.module-head h3 { margin: 0; font-weight: 700; font-size: 1.3rem; }
+.module-head .mod-total { color: var(--muted); font-size: .85rem; }
+
+.lesson-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .85rem 1.2rem;
+    margin: .35rem .5rem;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color .15s, background .15s, transform .1s;
+}
+.lesson-row:hover {
+    border-color: var(--primary);
+    background: var(--surface-2);
+    transform: translateY(-1px);
+}
+.lesson-row .lr-left { display: flex; align-items: center; gap: .9rem; min-width: 0; }
+.lesson-row .lr-idx {
+    width: 30px; height: 30px;
+    flex: 0 0 auto;
+    display: grid; place-items: center;
+    border-radius: 8px;
+    background: var(--surface-3);
+    color: var(--text);
+    font-weight: 700;
+    font-size: .9rem;
+}
+.lesson-row.done .lr-idx { background: rgba(47,211,138,.18); color: var(--success); }
+.lesson-row.wip  .lr-idx { background: rgba(240,180,41,.16); color: var(--warn); }
+.lesson-row .lr-title { font-weight: 600; color: var(--text); }
+.lesson-row .lr-desc { color: var(--muted); font-size: .93rem; line-height: 1.55; }
+
+/* ============================================================
+   Редактор кода / вывод
+   ============================================================ */
+.code-editor {
+    font-family: var(--mono);
+    font-size: 15px;
+    line-height: 1.65;
+    tab-size: 4;
+    background: #10141c;
+    color: #d8e0ea;
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: .9rem 1rem;
+    caret-color: var(--primary);
+    resize: vertical;
+}
+.code-editor:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+
+.term {
+    background: #0c0f13;
+    color: #d6dde6;
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    min-height: 90px;
+    font-family: var(--mono);
+    font-size: 14.5px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-x: auto;
+}
+.term .term-title {
+    display: block;
+    color: var(--faint);
+    font-size: .78rem;
+    letter-spacing: .4px;
+    margin-bottom: .6rem;
+}
+.term .t-ok   { color: var(--success); }
+.term .t-err  { color: var(--danger); }
+.term .t-out  { color: var(--info); }
+.term .t-hint { color: var(--warn); }
+
+.hint-note {
+    background: rgba(240,180,41,.09);
+    border-left: 4px solid var(--warn);
+    border-radius: 10px;
+    padding: .9rem 1rem;
+}
+.hint-note strong { color: var(--warn); }
+.hint-note .bi-lightbulb-fill { color: var(--warn); }
+
+/* Полное решение (появляется после нескольких неудачных попыток) */
+.solution-note {
+    background: rgba(47,211,138,.08);
+    border-left: 4px solid var(--success);
+    border-radius: 10px;
+    padding: .9rem 1rem;
+}
+.solution-note strong { color: var(--success); }
+.solution-note .bi-key-fill { color: var(--success); }
+/* ============================================================
+   Формы
+   ============================================================ */
+.form-label { color: var(--text); font-weight: 600; font-size: .9rem; }
+.form-control {
+    background: var(--bg-soft);
+    color: var(--text);
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    padding: .6rem .85rem;
+    transition: border-color .15s, box-shadow .15s;
+}
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-soft);
+    background: var(--surface-2);
+}
+.form-check-input {
+    background-color: var(--bg-soft);
+    border: 1.5px solid var(--border-2);
+    width: 1.1em; height: 1.1em;
+    margin-top: .2em;
+}
+.form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+.form-check-label { color: var(--text); }
+
+/* ============================================================
+   Бейджи / алерты
+   ============================================================ */
+.badge {
+    font-weight: 600;
+    padding: .35em .7em;
+    border-radius: 999px;
+    background: var(--surface-3);
+    color: var(--text);
+}
+.badge.bg-success { background: rgba(47,211,138,.18); color: var(--success); }
+.badge.bg-warning { background: rgba(240,180,41,.18); color: #211500; }
+.badge.bg-secondary { background: var(--surface-3); color: var(--muted); }
+.badge.bg-primary { background: var(--primary-soft); color: var(--primary); }
+.badge.bg-info { background: rgba(56,189,248,.18); color: var(--info); }
+.badge.bg-danger { background: rgba(255,92,110,.18); color: var(--danger); }
+
+/* Счётчик пройденных уроков в модуле («2/3»).
+   Раньше использовался bg-primary, но фиолетовый на тёмном фоне давал
+   слабый контраст и цифры читались плохо. Теперь светлый фон, тёмный
+   текст и моноширинный шрифт — счётчик видно сразу. */
+.badge-mod {
+    background: var(--surface-3);
+    color: var(--text);
+    border: 1px solid var(--border-2);
+    font-family: var(--mono);
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+    padding: .32em .7em;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+/* наполовину и полностью пройденный модуль — зелёный */
+.badge-mod.is-done {
+    background: rgba(47,211,138,.16);
+    color: #7bf0b8;
+    border-color: rgba(47,211,138,.45);
+}
+/* есть прогресс, но не закончено — фиолетовый акцент */
+.badge-mod.is-partial {
+    background: rgba(124,92,255,.22);
+    color: #cfc2ff;
+    border-color: rgba(124,92,255,.6);
+}
+
+.alert {
+    border-radius: 12px;
+    border: 1px solid var(--border-2);
+    background: var(--surface-2);
+    color: var(--text);
+    font-size: .95rem;
+}
+.alert.alert-success { border-color: rgba(47,211,138,.4); background: rgba(47,211,138,.12); color: var(--success); }
+.alert.alert-danger  { border-color: rgba(255,92,110,.4); background: rgba(255,92,110,.12); color: var(--danger); }
+.alert.alert-info    { border-color: rgba(56,189,248,.4); background: rgba(56,189,248,.12); color: var(--info); }
+.alert.alert-warning { border-color: rgba(240,180,41,.4); background: rgba(240,180,41,.12); color: var(--warn); }
+.alert .btn-close { filter: invert(1) hue-rotate(180deg); }
+
+/* ============================================================
+   Таблицы
+   ============================================================ */
+.table {
+    --bs-table-bg: transparent;
+    color: var(--text);
+    border-color: var(--border);
+    font-size: .93rem;
+}
+.table thead th { color: var(--muted); border-bottom: 1px solid var(--border-2); font-weight: 600; letter-spacing: .2px; }
+.table td { color: var(--text); border-color: var(--border); }
+.table-hover tbody tr:hover { background: var(--surface-2); color: var(--text); }
+/* ============================================================
+   Код-блоки (шпаргалка и т.п.)
+   ============================================================ */
+pre.code-block {
+    background: #0c0f13;
+    color: #d8e0ea;
+    border: 1px solid var(--border-2);
+    border-radius: 10px;
+    padding: .9rem 1rem;
+    font-size: 13px;
+    font-family: var(--mono);
+    overflow-x: auto;
+    line-height: 1.5;
+}
+pre.code-block .cm { color: var(--faint); }
+pre.code-block .kw { color: var(--primary); }
+pre.code-block .st { color: var(--success); }
+pre.code-block .fn { color: var(--info); }
+pre.code-block .nu { color: var(--warn); }
+code { color: var(--info); background: rgba(56,189,248,.12); padding: 0 .35em; border-radius: 5px; font-family: var(--mono); }
+
+/* ============================================================
+   Боковая панель с таблицами БД (курс SQL)
+   ============================================================ */
+.db-side-card {
+    background: linear-gradient(180deg, var(--surface), var(--bg-soft));
+    border: 1px solid var(--border-2);
+    border-radius: 14px;
+    padding: 1rem;
+    position: sticky;
+    top: 1rem;
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+}
+.db-side-head {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: .35rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+.db-side-head i { color: var(--primary); }
+.db-side-note {
+    font-size: .85rem;
+    color: var(--faint);
+    line-height: 1.55;
+    margin-bottom: .8rem;
+}
+.db-side-table {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: .6rem;
+    overflow: hidden;
+    background: #0c0f13;
+}
+.db-side-table > summary {
+    padding: .5rem .65rem;
+    cursor: pointer;
+    font-size: .88rem;
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    background: rgba(124,92,255,.08);
+}
+.db-side-table > summary:hover { background: rgba(124,92,255,.16); }
+.db-side-table > summary code {
+    font-family: var(--mono);
+    color: var(--primary);
+    font-size: .85rem;
+}
+.db-side-table > summary span {
+    color: var(--muted);
+    font-size: .8rem;
+}
+.db-table-scroll {
+    overflow-x: auto;
+    max-height: 320px;
+    overflow-y: auto;
+}
+table.db-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .78rem;
+    font-family: var(--mono);
+    margin: 0;
+}
+table.db-table th {
+    position: sticky;
+    top: 0;
+    background: #12161c;
+    color: var(--primary);
+    text-align: left;
+    padding: .35rem .5rem;
+    border-bottom: 1px solid var(--border-2);
+    font-weight: 600;
+}
+table.db-table td {
+    padding: .3rem .5rem;
+    border-bottom: 1px solid rgba(42,48,60,.55);
+    color: var(--faint);
+}
+table.db-table tbody tr:nth-child(even) { background: rgba(255,255,255,.02); }
+table.db-table tbody tr:hover { background: rgba(124,92,255,.12); }
+
+/* ---- Мобильная раскладка (курс SQL) ----
+   На телефоне узко: панель с таблицами уходит ПОД редактор,
+   занимает всю ширину и перестаёт «прилипать» (иначе наезжает на код). */
+@media (max-width: 991px) {
+    .sql-lesson-row { display: flex; flex-direction: column; }
+    .sql-lesson-editor { order: 1; width: 100%; }
+    .sql-lesson-db {
+        order: 2;
+        width: 100%;
+        margin-top: 1.25rem;
+    }
+    .db-side-card {
+        position: static;      /* убираем sticky — на узком экране он мешает */
+        top: auto;
+        max-height: none;
+        overflow-y: visible;
+        padding: .85rem;
+    }
+    .db-side-note { font-size: .8rem; margin-bottom: .6rem; }
+    .db-table-scroll { max-height: 260px; }
+    table.db-table { font-size: .72rem; }
+    table.db-table th,
+    table.db-table td { padding: .28rem .4rem; }
+}
+/* ============================================================
+   Строка "предыдущий / следующий"
+   ============================================================ */
+.next-prev { display: flex; gap: 1rem; justify-content: space-between; align-items: center; }
+.next-prev .np-prev,
+.next-prev .np-next {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: transparent; border: 1.5px solid var(--border-2);
+    color: var(--text); padding: .5rem 1.1rem; border-radius: 11px;
+    font-weight: 600; transition: all .15s;
+}
+.next-prev .np-prev:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+.next-prev .np-next:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+.next-prev .np-ghost {
+    padding: .5rem 1.1rem; border-radius: 11px;
+    border: 1.5px solid var(--border-2); color: var(--muted); font-weight: 600;
+}
+.next-prev .np-all { color: var(--info); font-weight: 600; }
+.next-prev .np-all:hover { color: var(--primary); }
+/* ============================================================
+   Подвал
+   ============================================================ */
+.footer-shell {
+    margin-top: 3rem;
+    padding: 1.75rem 1.5rem;
+    border-top: 1px solid var(--border-2);
+    background: linear-gradient(0deg, #0b0d11, #0e1013);
+    color: var(--faint);
+    font-size: .9rem;
+    text-align: center;
+}
+.footer-shell a { color: var(--info); }
+.footer-shell .foot-brand { color: var(--text); font-weight: 700; }
+.footer-shell .foot-brand .mark-brace { color: var(--primary); }
+
+/* ============================================================
+   Утилиты
+   ============================================================ */
+.text-muted { color: var(--muted) !important; }
+.text-success { color: var(--success); }
+.text-warning { color: var(--warn); }
+.text-danger { color: var(--danger); }
+.text-info { color: var(--info); }
+hr { border-color: var(--border-2); opacity: 1; }
+/* ============================================================
+   Читаемость: воздух и размеры текста
+   ============================================================ */
+body { line-height: 1.8; }
+p { line-height: 1.85; }
+.page-head p { font-size: 1.1rem; color: var(--muted); }
+.card-body p { line-height: 1.85; }
+.card-body li { line-height: 1.9; color: var(--text); }
+.lr-title { font-size: 1.05rem; }
+.lr-desc { font-size: .93rem; line-height: 1.65; }
+
+/* чуть крупнее текст в карточках и формах */
+.card-body { font-size: 1.02rem; }
+.form-label { font-size: .95rem; }
+.table { font-size: .96rem; }
+.lesson-row { font-size: 1rem; }
+
+/* Сворачиваемая теория внутри одного блока */
+details.theory-box {
+    background: var(--bg-soft);
+    border: 1px solid var(--border-2);
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+}
+details.theory-box summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    font-weight: 700;
+    color: var(--text);
+    padding: .8rem 1.1rem;
+    user-select: none;
+}
+details.theory-box summary::-webkit-details-marker { display: none; }
+details.theory-box summary::after {
+    content: "\F282";
+    font-family: "bootstrap-icons";
+    margin-left: auto;
+    color: var(--primary);
+    transition: transform .2s;
+}
+details.theory-box[open] summary::after { transform: rotate(180deg); }
+details.theory-box .theory-inner {
+    padding: .2rem 1.2rem 1.1rem;
+    border-top: 1px dashed var(--border-2);
+}
+details.theory-box .theory-inner ul { padding-left: 1.2rem; margin: .7rem 0 0; }
+details.theory-box .theory-inner ul li { margin-bottom: .55rem; }
+
+/* Кнопка "Следующее задание" */
+.btn-next-task {
+    display: inline-flex;
+    align-items: center;
+    gap: .65rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.02rem;
+    padding: .8rem 1.8rem;
+    border-radius: 14px;
+    box-shadow: 0 5px 0 rgba(124,92,255,.35);
+    transition: transform .12s, box-shadow .15s;
+}
+.btn-next-task:hover {
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 9px 0 rgba(124,92,255,.5);
+}
+.btn-prev-task {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    background: transparent;
+    border: 1.5px solid var(--border-2);
+    color: var(--muted);
+    padding: .8rem 1.3rem;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all .15s;
+}
+.btn-prev-task:hover { color: var(--text); border-color: var(--primary); background: var(--primary-soft); }
+/* ============================================================
+   Анимированный фон с кодом
+   ============================================================ */
+.code-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    font-family: var(--mono);
+    font-size: .68rem;
+    line-height: 1.5;
+}
+.code-col {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    white-space: pre;
+    overflow: hidden;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    will-change: transform;
+}
+.code-col.up   { animation-name: codeScrollUp; }
+.code-col.down { animation-name: codeScrollDown; }
+.code-col-inner {
+    display: block;
+    padding: 0 10px 28px;
+    color: rgba(125, 211, 252, .30);
+    text-shadow: 0 0 8px rgba(125, 211, 252, .12);
+    overflow: hidden;
+}
+.code-col-inner:nth-child(2) { color: rgba(148, 163, 184, .22); }
+@keyframes codeScrollUp   { 0% { transform: translateY(0);     } 100% { transform: translateY(-50%); } }
+@keyframes codeScrollDown { 0% { transform: translateY(-50%); } 100% { transform: translateY(0);     } }
+
+/* контент поверх фона */
+main.container, .footer-shell { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+    .code-col { animation: none !important; }
+}
+@media (max-width: 768px) {
+    .code-bg { font-size: .52rem; line-height: 1.4; opacity: .7;
+        filter: blur(.3px); }
+    .code-col-inner { padding: 0 3px 16px;
+        color: rgba(125, 211, 252, .22); }
+    .code-col-inner:nth-child(2) { color: rgba(148, 163, 184, .16); }
+}
+@media (max-width: 480px) {
+    /* на мобильных — одна тонкая колонка слева, почти невесомая */
+    .code-bg { font-size: .42rem; line-height: 1.3; opacity: .45;
+        filter: blur(.5px); }
+    .code-col {
+        width: 100% !important;
+        left: 0 !important;
+    }
+    .code-col-inner { padding: 0 2px 12px;
+        color: rgba(125, 211, 252, .16); }
+    .code-col-inner:nth-child(2) { color: rgba(148, 163, 184, .12); }
+}
+/* ============================================================
+   Редактор в стиле PyCharm (песочница)
+   ============================================================ */
+.pyeditor {
+    background: #2b2b2b;
+    border: 1px solid var(--border-2);
+    border-radius: 14px;
+    overflow: hidden;
+    font-family: var(--mono);
+    font-size: 15px;
+    line-height: 1.7;
+    box-shadow: 0 12px 30px rgba(0,0,0,.35);
+}
+.pe-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 38px;
+    padding: 0 14px;
+    background: linear-gradient(180deg, #3c3f41, #313335);
+    border-bottom: 1px solid #2b2b2b;
+}
+.pe-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; }
+.pe-dot.r { background: #ff5f56; }
+.pe-dot.y { background: #ffbd2e; }
+.pe-dot.g { background: #27c93f; }
+.pe-file {
+    color: #b6babf;
+    font-size: 12.5px;
+    margin-left: 10px;
+    font-family: var(--mono);
+    letter-spacing: .2px;
+}
+.pe-body {
+    position: relative;
+    height: min(78vh, 1000px);
+    min-height: 560px;
+    /* скроллит сам контейнер (не textarea) — работает во всех браузерах,
+       включая Chrome, где padding у textarea не попадает в скролл-область */
+    overflow: auto;
+    scrollbar-color: #55595e #2b2b2b;
+}
+.pe-canvas { display: flex; align-items: stretch; min-height: 100%; width: 100%; }
+.pe-gutter {
+    flex: 0 0 54px;
+    width: 54px;
+    background: #313335;
+    border-right: 1px solid #3c3f41;
+    color: #9ba0a8;
+    text-align: right;
+    padding: .9rem 9px .9rem 0;
+    white-space: pre;
+    user-select: none;
+    font: inherit;
+    line-height: inherit;
+}
+/* Панель кода. Подсветка лежит В ПОТОКЕ и задаёт размеры области,
+   а прозрачная textarea накрывает её сверху. Так обе части всегда
+   совпадают по высоте и ширине, а прокручивает только .pe-body.
+   Раньше textarea скроллилась сама (overflow:auto) плюс контейнер —
+   получался двойной скролл, из-за чего строки наезжали друг на друга,
+   а номера строк не совпадали с кодом. */
+.pe-pane { position: relative; flex: 1 0 auto; min-width: max-content; }
+.pe-highlight {
+    position: relative;
+    margin: 0;
+    padding: .9rem 1rem;
+    color: #e9edf4;
+    white-space: pre;
+    min-width: max-content;
+    font: inherit;
+    line-height: inherit;
+    tab-size: 4;
+    pointer-events: none;
+}
+
+/* ============================================================
+   Шпаргалка: левая памятка (40%) / правая мотивация (60%)
+   ============================================================ */
+.cs-topic { align-items: stretch; }
+.cs-topic .card { border: 1px solid var(--border); }
+.cs-explain {
+    background: linear-gradient(180deg, var(--surface), var(--bg-soft));
+}
+.cs-explain .cs-q {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: .95rem;
+    letter-spacing: .02em;
+    margin-top: .9rem;
+}
+.cs-explain .cs-q:first-child { margin-top: 0; }
+.cs-explain p {
+    color: var(--faint);
+    font-size: .97rem;
+    line-height: 1.7;
+    margin-bottom: .4rem;
+}
+.cs-explain .cs-q:not(:first-child) { border-top: 1px dashed var(--border-2); padding-top: .8rem; }
+
+/* Три смысловых блока в пояснении к шпаргалке:
+   «Зачем» (смысл), «Где встречается» (контекст), «Обрати внимание» (грабли).
+   Раньше всё это смешалось в одной строке note, и было непонятно,
+   что именно полезно знать. */
+.cs-explain .cs-why {
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.7;
+    border-left: 3px solid var(--primary);
+    padding-left: .8rem;
+    margin-bottom: .9rem;
+}
+.cs-explain .cs-where {
+    color: var(--faint);
+    font-size: .97rem;
+    line-height: 1.7;
+    border-left: 3px solid var(--info);
+    padding-left: .8rem;
+}
+.cs-explain .cs-where::before {
+    content: '▸ ';
+    color: var(--info);
+    font-weight: 700;
+}
+.cs-explain .cs-q-2 { color: var(--info) !important; }
+.cs-topic { margin-bottom: 1.2rem; }
+.cs-topic .card { transition: transform .15s ease, box-shadow .15s ease; }
+.cs-topic .card:hover { box-shadow: 0 4px 16px rgba(124,92,255,.12); }
+.cs-topic .card-header { font-size: 1.05rem; }
+.cs-topic pre { font-size: .82rem; line-height: 1.5; }
+.pe-input {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: .9rem 1rem;
+    background: transparent;
+    color: transparent;
+    caret-color: #ffffff;
+    border: none;
+    outline: none;
+    resize: none;
+    font: inherit;
+    line-height: inherit;
+    white-space: pre;
+    /* важно: никакого собственного скролла у textarea — прокручивает .pe-body,
+       иначе подсветка и текст расходятся по вертикали */
+    overflow: hidden;
+    overflow-wrap: normal;
+    word-break: normal;
+    box-sizing: border-box;
+    tab-size: 4;
+}
+.pyeditor ::selection { background: #214283; }
+
+/* Мобильная адаптация редактора: компактнее нумерация и шрифт.
+   Высота = по содержимому (скролл только когда кода МНОГО). */
+@media (max-width: 768px) {
+    .pyeditor { font-size: 13.5px; line-height: 1.6; }
+    .pe-body {
+        height: auto;
+        min-height: 100px;
+        max-height: none;
+        /* длинные строки на телефоне прокручиваются по горизонтали */
+        overflow-x: auto;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .pe-canvas { min-height: 100%; }
+    .pe-gutter {
+        flex-basis: 42px;
+        width: 42px;
+        padding: .6rem 6px .6rem 0;
+        font-size: 12.5px;
+    }
+    .pe-highlight, .pe-input {
+        padding: .6rem .7rem;
+    }
+    .pe-toolbar { height: 34px; padding: 0 10px; }
+    .pe-file { font-size: 12px; margin-left: 6px; }
+    .sounddock { right: 12px; bottom: 12px; gap: 8px; }
+    .float-btn { width: 42px; height: 42px; font-size: 1.1rem; }
+}
+@media (max-width: 480px) {
+    .pyeditor { font-size: 12.5px; line-height: 1.55; }
+    .pe-body {
+        max-height: none;
+        min-height: 80px;
+        overflow-y: visible;
+    }
+    .pe-gutter { flex-basis: 36px; width: 36px; font-size: 11.5px; }
+    .pe-highlight, .pe-input { padding: .55rem .6rem; }
+    .pe-toolbar { height: 32px; padding: 0 8px; }
+    .pe-file { font-size: 11.5px; }
+    .sounddock { right: 10px; bottom: 10px; gap: 6px; }
+    .float-btn { width: 38px; height: 38px; font-size: 1rem; }
+}
+
+/* цвета токенов (палитра Darcula / PyCharm, осветлённая под тёмный фон) */
+.pyeditor .tok-c { color: #8f9aa6; font-style: italic; }
+.pyeditor .tok-s { color: #86c17a; }
+.pyeditor .tok-k { color: #e8954a; }
+.pyeditor .tok-n { color: #82b8e8; }
+.pyeditor .tok-b { color: #e6e0a0; }
+.pyeditor .tok-f { color: #ffd47d; }
+.pyeditor .tok-m { color: #b18ae0; }
+/* ============================================================
+   Плавающие кнопки звука и музыки
+   ============================================================ */
+.sounddock {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1050;
+}
+.float-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--border-2);
+    background: rgba(23, 27, 34, .88);
+    backdrop-filter: blur(6px);
+    color: var(--primary);
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+    transition: transform .2s ease, border-color .2s ease, color .2s ease;
+}
+.float-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+    color: var(--text);
+}
+.float-btn.off {
+    color: var(--faint);
+    opacity: .8;
+}
+.float-btn.off:hover {
+    color: var(--danger);
+    border-color: var(--danger);
+}
+.float-btn.on {
+    animation: musicPulse 2.6s ease-in-out infinite;
+}
+@keyframes musicPulse {
+    0%, 100% { text-shadow: 0 0 0 rgba(124, 92, 255, 0); }
+    50%      { text-shadow: 0 0 14px rgba(124, 92, 255, .85); }
+}
+
+/* ============================================================
+   Карточки языков программирования
+   ============================================================ */
+.language-card {
+    transition: transform .25s ease, box-shadow .25s ease;
+    border: 1px solid var(--border);
+}
+
+.language-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .4);
+}
+
+.language-icon {
+    font-size: 3.5rem;
+    line-height: 1;
+    margin-bottom: .75rem;
+}
+
+.language-stats .badge {
+    font-weight: 500;
+    padding: .35em .65em;
+}
+
+/* ============================================================
+   Шпаргалки
+   ============================================================ */
+.cs-topic {
+    margin-bottom: 1rem !important;
+    padding-top: 0.5rem;
+}
+
+.cs-explain .cs-q {
+    margin-top: 0.4rem;
+    margin-bottom: 0.15rem;
+    font-size: 0.85rem;
+}
+
+.cs-explain p {
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+    font-size: 0.9rem;
+}
+.task-desc {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border, #2a2f45);
+  border-radius: 12px;
+  padding: 12px 16px;
+}
+.task-desc h5 { margin-bottom: 4px; }
+.task-tabs .pill { text-decoration: none; }
+
+/* Кнопка копирования кода */
+.code-with-copy { position: relative; }
+.btn-copy {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    z-index: 3;
+    background: var(--surface-3);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s, color 0.2s;
+}
+.code-with-copy:hover .btn-copy { opacity: 1; }
+.btn-copy:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+.btn-copy.copied {
+    background: var(--success);
+    color: #fff;
+    border-color: var(--success);
+}
+\n
+
+.sql-result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 0.85em;
+    overflow-x: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.sql-result-table th,
+.sql-result-table td {
+    border: 1px solid var(--border);
+    padding: 8px 12px;
+    text-align: left;
+    min-width: 120px;
+}
+
+.sql-result-table th {
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-weight: 600;
+    min-width: 120px;
+}
+
+.sql-result-table tbody tr:nth-child(even) {
+    background-color: var(--bg-alt);
+}
+
+.sql-result-table tbody tr:hover {
+    background-color: var(--hover);
+}
+
+
+/* ---- Мобильная раскладка (SQL) — мелкие экраны ---- */
+@media (max-width: 768px) {
+    .sql-lesson-editor .pe-body { min-height: 400px; height: min(60vh, 700px); }
+    .db-side-card { padding: .7rem; }
+    .db-side-head { font-size: .9rem; }
+    .db-side-note { font-size: .75rem; }
+    .db-table-scroll { max-height: 220px; }
+    table.db-table { font-size: .68rem; }
+    table.db-table th,
+    table.db-table td { padding: .22rem .35rem; }
+    .sql-result-table { font-size: 0.78em; }
+    .sql-result-table th,
+    .sql-result-table td { padding: 6px 8px; min-width: 90px; }
+    .term { font-size: 13px; padding: .7rem .8rem; }
+    .hint-note, .solution-note { font-size: .85rem; }
+}
+
+@media (max-width: 480px) {
+    .sql-lesson-editor .pe-body { min-height: 320px; height: min(50vh, 500px); }
+    .db-side-card { padding: .6rem; border-radius: 10px; }
+    .db-side-head { font-size: .85rem; }
+    .db-side-note { font-size: .7rem; margin-bottom: .4rem; }
+    .db-table-scroll { max-height: 180px; }
+    table.db-table { font-size: .62rem; }
+    table.db-table th,
+    table.db-table td { padding: .18rem .3rem; }
+    .sql-result-table { font-size: 0.72em; }
+    .sql-result-table th,
+    .sql-result-table td { padding: 4px 6px; min-width: 70px; }
+    .term { font-size: 12px; padding: .6rem .7rem; }
+    .code-block { font-size: 12px; padding: .7rem .8rem; }
+    .d-flex.justify-content-between { flex-direction: column; gap: .5rem; }
+    .d-flex.justify-content-between .btn { width: 100%; }
+    #runBtn, #resetBtn { width: 100%; }
+}

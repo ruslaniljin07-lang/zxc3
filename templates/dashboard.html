@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block title %}Дашборд — Codigo{% endblock %}
+
+{% block content %}
+<div class="page-head text-center">
+    <span class="kicker">Личный кабинет</span>
+    <h1>Привет, {{ current_user.username }}!</h1>
+    <p>Продолжай в том же духе — каждый день маленький шаг к большим результатам.</p>
+    <div class="d-flex justify-content-center align-items-center gap-4 mt-3 flex-wrap">
+        <span class="streak-big">{{ streak }} 🔥</span>
+        <span class="pill accent" style="font-size:.95rem;">{{ status_emoji }} {{ status_name }}</span>
+    </div>
+</div>
+
+<div class="row justify-content-center mb-4">
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0"><i class="bi bi-graph-up-arrow me-2 text-primary"></i>Уровень {{ level }}</h5>
+                    <span class="text-muted">{{ level_xp }} / {{ level_xp + xp_to_next }} XP</span>
+                </div>
+                <div class="xp-meter">
+                    <div class="xp-fill" style="width: {{ (level_xp / (level_xp + xp_to_next) * 100) if (level_xp + xp_to_next) > 0 else 0 }}%"></div>
+                </div>
+                <p class="text-end mt-2 mb-0 text-muted">До следующего уровня: <strong class="text-warning">{{ xp_to_next }} XP</strong></p>
+            </div>
+        </div>
+
+        {% if earned_achievements %}
+        <div class="card mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0"><i class="bi bi-trophy me-2 text-warning"></i>Достижения ({{ earned_achievements|length }})</h5>
+                    <a href="{{ url_for('profile') }}" class="btn btn-ghost btn-sm"><i class="bi bi-arrow-right"></i> Все</a>
+                </div>
+                <div class="d-flex flex-wrap gap-3">
+                    {% for ach in earned_achievements %}
+                        <div class="ach-chip" title="{{ ach.name }} (+{{ ach.xp }} XP)">
+                            <span class="ach-icon">{{ ach.icon }}</span>
+                            <span class="ach-name">{{ ach.name }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row g-3 text-center">
+            <div class="col-4">
+                <div class="stat-block">
+                    <div class="stat-num">{{ lessons_done }}</div>
+                    <div class="stat-lbl">Уроков пройдено</div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="stat-block">
+                    <div class="stat-num">{{ tasks_done }}</div>
+                    <div class="stat-lbl">Задач решено</div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="stat-block">
+                    <div class="stat-num text-warning">{{ tests_done }}</div>
+                    <div class="stat-lbl">Тестов пройдено</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="text-center mb-4">Мои курсы</h2>
+<div class="row">
+    {% for lang in languages %}
+    <div class="col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 language-card" style="border-top: 4px solid {{ lang.color }};">
+            <div class="card-body text-center">
+                <div class="language-icon mb-3">{{ lang.icon }}</div>
+                <h5 class="card-title">{{ lang.name }}</h5>
+                <p class="card-text text-muted small">{{ lang.description }}</p>
+                {% set p = lang_progress.get(lang.code) %}
+                <div class="progress mb-2" style="height: 12px;">
+                    <div class="progress-bar bg-success" role="progressbar"
+                         style="width: {{ p.percent }}%"></div>
+                </div>
+                <small class="text-muted">{{ p.completed }} / {{ p.total }} уроков · {{ p.percent }}%</small>
+            </div>
+            <div class="card-footer bg-transparent border-0 text-center pb-3">
+                <a href="{{ url_for('language_course', lang_code=lang.code) }}"
+                   class="btn btn-primary w-100">
+                    {{ 'Продолжить обучение' if p.completed > 0 else 'Начать обучение' }}
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="text-center mt-5">
+    <p class="text-muted mb-3">Куда дальше?</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="{{ url_for('lessons', lang_code=lang_code) }}" class="btn btn-primary btn-xl">
+            <i class="bi bi-book"></i> Выбрать урок
+        </a>
+        <a href="{{ url_for('test', lang_code=lang_code) }}" class="btn btn-ghost btn-xl">
+            <i class="bi bi-pencil-square"></i> Пройти тест
+        </a>
+        <a href="{{ url_for('sandbox') }}" class="btn btn-ghost btn-xl">
+            <i class="bi bi-terminal"></i> Песочница
+        </a>
+    </div>
+</div>
+{% endblock %}
